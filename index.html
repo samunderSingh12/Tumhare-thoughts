@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Thoughts Board</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap');
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Lora', serif;
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            line-height: 1.6;
+            padding: 20px;
+            margin: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            color: #bb86fc;
+            font-weight: 700;
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+        #thoughtForm {
+            background-color: #2d2d2d;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            margin-bottom: 30px;
+        }
+        #thoughtInput {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border: 1px solid #444;
+            border-radius: 4px;
+            resize: vertical;
+            font-family: 'Lora', serif;
+            font-size: 16px;
+            margin-bottom: 15px;
+            background-color: #333;
+            color: #e0e0e0;
+        }
+        button {
+            background-color: #bb86fc;
+            color: #121212;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 16px;
+            display: block;
+            width: 100%;
+        }
+        #thoughtsContainer {
+            position: relative;
+            padding: 20px 0;
+        }
+        .thought {
+            background-color: #2d2d2d;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            padding: 15px;
+            margin-bottom: 20px;
+            position: relative;
+            max-width: 300px;
+        }
+        .thought::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: -20px;
+            width: 20px;
+            height: 2px;
+            background-color: #bb86fc;
+        }
+        .thought:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 22px;
+            left: -20px;
+            width: 2px;
+            height: calc(100% + 20px);
+            background-color: #bb86fc;
+        }
+        .thought p {
+            margin: 0;
+            color: #e0e0e0;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        .thought .date {
+            font-size: 0.9em;
+            color: #bb86fc;
+            margin-top: 10px;
+            text-align: right;
+            font-style: italic;
+        }
+        .thought img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 10px;
+            border-radius: 4px;
+        }
+        #postType {
+            margin-bottom: 15px;
+            background-color: #333;
+            color: #e0e0e0;
+            border: 1px solid #444;
+            padding: 8px;
+            border-radius: 4px;
+            width: 100%;
+        }
+        #imageInput {
+            margin-bottom: 15px;
+            color: #e0e0e0;
+            width: 100%;
+        }
+        
+        .level-0 { margin-left: 0; }
+        .level-1 { margin-left: 40px; }
+        .level-2 { margin-left: 80px; }
+        .level-3 { margin-left: 120px; }
+        .level-4 { margin-left: 160px; }
+        
+        @media screen and (max-width: 768px) {
+            .thought {
+                max-width: 100%;
+            }
+            .level-0, .level-1, .level-2, .level-3, .level-4 {
+                margin-left: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Tumhare Thoughts</h1>
+        <div id="thoughtForm">
+            <select id="postType" onchange="toggleImageInput()">
+                <option value="text">Text Only</option>
+                <option value="image">Image with Text</option>
+            </select>
+            <textarea id="thoughtInput" placeholder="Write your thoughts here..."></textarea>
+            <input type="file" id="imageInput" accept="image/*" style="display: none;">
+            <button onclick="addThought()">Post Thought</button>
+        </div>
+        <div id="thoughtsContainer"></div>
+    </div>
+
+    <script>
+        // Load thoughts from localStorage when the page loads
+        window.onload = function() {
+            loadThoughts();
+        }
+
+        function toggleImageInput() {
+            const postType = document.getElementById('postType').value;
+            const imageInput = document.getElementById('imageInput');
+            imageInput.style.display = postType === 'image' ? 'block' : 'none';
+        }
+
+        function addThought() {
+            const thoughtInput = document.getElementById('thoughtInput');
+            const thoughtsContainer = document.getElementById('thoughtsContainer');
+            const postType = document.getElementById('postType').value;
+            const imageInput = document.getElementById('imageInput');
+            
+            if (thoughtInput.value.trim() !== '') {
+                const thought = {
+                    text: thoughtInput.value,
+                    date: new Date().toLocaleString(),
+                    type: postType,
+                    image: postType === 'image' && imageInput.files[0] ? URL.createObjectURL(imageInput.files[0]) : null
+                };
+                
+                saveThought(thought);
+                renderThought(thought);
+                
+                thoughtInput.value = '';
+                imageInput.value = '';
+            }
+        }
+
+        function saveThought(thought) {
+            const thoughts = JSON.parse(localStorage.getItem('thoughts')) || [];
+            thoughts.unshift(thought);
+            localStorage.setItem('thoughts', JSON.stringify(thoughts));
+        }
+
+        function loadThoughts() {
+            const thoughts = JSON.parse(localStorage.getItem('thoughts')) || [];
+            thoughts.forEach(thought => renderThought(thought));
+        }
+
+        function renderThought(thought) {
+            const thoughtsContainer = document.getElementById('thoughtsContainer');
+            const thoughtElement = document.createElement('div');
+            thoughtElement.className = 'thought';
+            
+            // Determine the level (0 to 4) based on the number of existing thoughts
+            const level = thoughtsContainer.children.length % 5;
+            thoughtElement.classList.add(`level-${level}`);
+            
+            const thoughtText = document.createElement('p');
+            thoughtText.textContent = thought.text;
+            
+            const dateElement = document.createElement('div');
+            dateElement.className = 'date';
+            dateElement.textContent = thought.date;
+            
+            thoughtElement.appendChild(thoughtText);
+
+            if (thought.type === 'image' && thought.image) {
+                const img = document.createElement('img');
+                img.src = thought.image;
+                thoughtElement.appendChild(img);
+            }
+
+            thoughtElement.appendChild(dateElement);
+            thoughtsContainer.insertBefore(thoughtElement, thoughtsContainer.firstChild);
+        }
+    </script>
+</body>
+</html>

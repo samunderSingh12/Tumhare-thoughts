@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Samunder Singh - AI & ML Innovator</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <style>
+        :root {
+            --bg-primary: #0a192f;
+            --bg-secondary: #112240;
+            --text-primary: #e6f1ff;
+            --text-secondary: #8892b0;
+            --accent-color: #64ffda;
+            --accent-hover: #00e5ff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body, html {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: var(--bg-primary);
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+        
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: rgba(10, 25, 47, 0.8);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: var(--accent-color);
+            text-shadow: 0 0 10px rgba(100, 255, 218, 0.5);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: 500;
+            position: relative;
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            z-index: 1;
+        }
+        
+        .hero h1 {
+            font-size: 4em;
+            margin-bottom: 20px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px var(--accent-color), 0 0 20px var(--accent-color);
+            }
+            to {
+                text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px var(--accent-color), 0 0 40px var(--accent-color);
+            }
+        }
+        
+        .hero p {
+            font-size: 1.3em;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            color: var(--text-secondary);
+            animation: fadeInUp 1s ease-out 0.2s;
+            animation-fill-mode: both;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: transparent;
+            color: var(--accent-color);
+            padding: 12px 24px;
+            border: 2px solid var(--accent-color);
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease-out 0.4s;
+            animation-fill-mode: both;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn:hover {
+            color: var(--bg-primary);
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            background: var(--accent-color);
+            bottom: 0;
+            left: 0;
+            right: 0;
+            top: 100%;
+            z-index: -1;
+            transition: top 0.3s ease;
+        }
+        
+        .btn:hover::before {
+            top: 0;
+        }
+        
+        section {
+            padding: 100px 0;
+        }
+        
+        h2 {
+            text-align: center;
+            color: var(--accent-color);
+            margin-bottom: 50px;
+            font-size: 2.5em;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 2px;
+            bottom: -10px;
+            left: 25%;
+            background-color: var(--accent-color);
+        }
+        
+        .skills {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        
+        .skill {
+            flex-basis: 48%;
+            margin-bottom: 30px;
+            background: var(--bg-secondary);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .skill::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(100, 255, 218, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s ease;
+        }
+        
+        .skill:hover::before {
+            left: 100%;
+        }
+        
+        .skill:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(100, 255, 218, 0.2);
+        }
+        
+        .skill-name {
+            margin-bottom: 15px;
+            font-size: 1.2em;
+            color: var(--text-primary);
+        }
+        
+        .skill-bar {
+            height: 10px;
+            background: #2c2c2c;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .skill-per {
+            height: 100%;
+            background: var(--accent-color);
+            border-radius: 5px;
+            position: relative;
+            animation: fillBar 2s ease-out;
+            transition: width 0.5s ease;
+        }
+        
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-gap: 30px;
+        }
+        
+        .project {
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .project::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, var(--accent-color), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .project:hover::before {
+            opacity: 0.1;
+        }
+        
+        .project:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 6px 12px rgba(100, 255, 218, 0.2);
+        }
+        
+        .project img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .project:hover img {
+            transform: scale(1.1);
+        }
+        
+        .project-info {
+            padding: 20px;
+        }
+        
+        .project-title {
+            font-size: 1.4em;
+            margin-bottom: 10px;
+            color: var(--accent-color);
+        }
+        
+        .project-description {
+            font-size: 0.9em;
+            color: var(--text-secondary);
+        }
+        
+        #contact {
+            text-align: center;
+        }
+        
+        #contact p {
+            max-width: 600px;
+            margin: 0 auto 30px;
+            color: var(--text-secondary);
+        }
+        
+        footer {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            text-align: center;
+            padding: 30px 0;
+        }
+        
+        .social-links {
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            color: var(--text-primary);
+            font-size: 1.5em;
+            margin: 0 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fillBar {
+            from {
+                width: 0;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5em;
+            }
+            .skill {
+                flex-basis: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+    
+    <header>
+        <nav class="container">
+            <div class="logo">SS</div>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Samunder Singh</h1>
+            <p>AI & ML Enthusiast | Linux Aficionado | Digital Innovator</p>
+            <a href="#contact" class="btn">Let's Innovate Together</a>
+        </div>
+    </section>
+
+    <section id="about" class="container">
+        <h2>About Me</h2>
+        <p>Greetings, tech enthusiasts! I'm Samunder Singh, a 12th-grade student with an insatiable appetite for artificial intelligence, machine learning, and the boundless realm of computer science. My journey in technology is fueled by a vision to push the boundaries of what's possible, harnessing the power of AI and the versatility of Linux to craft innovative solutions that shape our digital future. Standing at the crossroads of high school and higher education, I'm poised to dive deeper into these cutting-edge fields, eager to contribute my unique perspective to the ever-evolving tech landscape.</p>
+    </section>
+
+    <section id="skills" class="container">
+        <h2>Skills</h2>
+        <div class="skills">
+            <div class="skill">
+                <div class="skill-name">AI & Machine Learning</div>
+                <div class="skill-bar">
+                    <div class="skill-per" style="width: 10%"></div>
+                </div>
+            </div>
+            <div class="skill">
+                <div class="skill-name">Linux Systems</div>
+                <div class="skill-bar">
+                    <div class="skill-per" style="width: 40%"></div>
+                </div>
+            </div>
+            <div class="skill">
+                <div class="skill-name">Python Programming</div>
+                <div class="skill-bar">
+                    <div class="skill-per" style="width: 55%"></div>
+                </div>
+            </div>
+            <div class="skill">
+                <div class="skill-name">Data Analysis</div>
+                <div class="skill-bar">
+                    <div class="skill-per" style="width: 15%"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="container">
+        <h2>Innovative Projects</h2>
+        <div class="projects">
+            <div class="project">
+                <img src="/api/placeholder/400/320" alt="AI Project">
+                <div class="project-info">
+                    <h3 class="project-title">Neural Network Visualizer</h3>
+                    <p class="project-description">Developed an interactive tool to visualize complex neural network architectures and their decision-making processes in real-time.</p>
+                </div>
+            </div>
+            <div class="project">
+                <img src="/api/placeholder/400/320" alt="Linux Project">
+                <div class="project-info">
+                    <h3 class="project-title">AI-Optimized Linux Distro</h3>
+                    <p class="project-description">Created a custom Linux distribution tailored for AI and ML development, featuring pre-configured tools and kernel optimizations for enhanced performance.</p>
+                </div>
+            </div>
+            <div class="project">
+                <img src="/api/placeholder/400/320" alt="Data Analysis Project">
+                <div class="project-info">
+                    <h3 class="project-title">Predictive Analytics Dashboard</h3>
+                    <p class="project-description">Built a real-time dashboard using advanced machine

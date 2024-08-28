@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wanted: Raja the Thief</title>
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #e6e6e6;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            text-align: center;
+            background-color: #333;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .flashing-text {
+            font-size: 8vw;
+            color: #ff0000;
+            animation: flash 1s infinite;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        @keyframes flash {
+            0%, 50% {
+                opacity: 1;
+            }
+            50.01%, 100% {
+                opacity: 0;
+            }
+        }
+
+        .image-container {
+            margin: 20px 0;
+        }
+
+        #wanted-image {
+            width: 80%;
+            max-width: 300px;
+            height: auto;
+            border: 5px solid #ff0000;
+            border-radius: 50%;
+        }
+
+        .description {
+            font-size: 4vw;
+            max-width: 90%;
+            margin: 0 auto 20px;
+            color: #ff6666;
+            line-height: 1.5;
+        }
+
+        button {
+            background-color: #ff0000;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 5vw;
+            max-width: 100%;
+            transition: background-color 0.3s;
+            text-transform: uppercase;
+        }
+
+        button:hover {
+            background-color: #cc0000;
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 4vw;
+            color: #888;
+        }
+
+        .footer a {
+            color: #ff6666;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Ensure elements scale down on smaller screens */
+        @media (min-width: 600px) {
+            .flashing-text {
+                font-size: 48px;
+            }
+            .description {
+                font-size: 18px;
+            }
+            button {
+                font-size: 18px;
+            }
+            .footer {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="flashing-text">WANTED</div>
+        <div class="image-container">
+            <img src="placeholder.jpg" alt="Wanted Thief" id="wanted-image">
+        </div>
+        <p class="description">
+            This person, Raja, is a notorious thief known for stealing hearts of olds lady even my grandma fell in his trap. If you see him, please contact the authorities or reach out to the owner of this site immediately. He is considered dangerous and extremely sexy!
+        </p>
+        <button onclick="contactMe()">Contact Me</button>
+        <div class="footer">
+            <p>Think this is a joke? <a href="#" onclick="showSecret()">Click here to reveal a secret!</a></p>
+        </div>
+    </div>
+    <script>
+        // Function for contact button
+        function contactMe() {
+            alert('Contact me at: samundersinghadhikari9@gmail.com');
+        }
+
+        // Function to reveal a secret message
+        function showSecret() {
+            alert('Raja is not really a thief, but he might steal your chick!');
+        }
+    </script>
+</body>
+</html>
